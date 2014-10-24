@@ -1,5 +1,8 @@
 package org.jeometry;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * A two dimensional triangle, encoded with floats.
  */
@@ -25,6 +28,26 @@ public final class Triangle3F {
 
   public Vector3F getThirdVertex() {
     return c;
+  }
+
+  public Set<LineSegment3F> getEdges() {
+    Set<LineSegment3F> result = new HashSet<>();
+    result.add(new LineSegment3F(a, b));
+    result.add(new LineSegment3F(b, c));
+    result.add(new LineSegment3F(c, a));
+    return result;
+  }
+
+  /**
+   * Returns a vector which is perpendicular to the plane of this triangle. The magnitude and
+   * direction (among the two perpendicular directions) are undefined.
+   */
+  public Vector3F getNormal() {
+    return b.minus(a).cross(c.minus(a));
+  }
+
+  public Vector3F getFirstIntersectionPoint(Ray3F ray) {
+    ;
   }
 
   public AxisAlignedBox3F getBoundingBox() {
